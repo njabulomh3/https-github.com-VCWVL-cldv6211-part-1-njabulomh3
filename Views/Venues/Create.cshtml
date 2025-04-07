@@ -1,0 +1,80 @@
+﻿@model EventEase.Models.Venue
+
+@{
+    ViewData["Title"] = "Create Venue";
+}
+
+<h1>Create Venue</h1>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="VenueName" class="control-label"></label>
+                <input asp-for="VenueName" class="form-control" />
+                <span asp-validation-for="VenueName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Capacity" class="control-label"></label>
+                <input asp-for="Capacity" class="form-control" />
+                <span asp-validation-for="Capacity" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label">Venue Image</label>
+                <div class="custom-file">
+                    <input asp-for="ImageFile" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose image...</label>
+                </div>
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                <small class="form-text text-muted">Only JPG, PNG files up to 5MB</small>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Update file input label
+        document.querySelector('.custom-file-input').addEventListener('change', function(e) {
+            var fileName = e.target.files[0].name;
+            var nextSibling = e.target.nextElementSibling;
+            nextSibling.innerText = fileName;
+        });
+
+        // Client-side validation for file size
+        document.querySelector('form').addEventListener('submit', function(e) {
+            var fileInput = document.querySelector('.custom-file-input');
+            if (fileInput.files[0] && fileInput.files[0].size > 5 * 1024 * 1024) {
+                alert('File size must be less than 5MB');
+                e.preventDefault();
+            }
+        });
+    </script>
+}

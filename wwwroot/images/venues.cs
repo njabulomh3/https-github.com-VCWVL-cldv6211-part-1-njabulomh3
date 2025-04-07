@@ -1,0 +1,11 @@
+﻿wwwroot/
+    images/
+    venues/
+    Venue1.jpg
+    venue2.jpg
+    venue3.jpg
+    venue4.jpg
+    Event1.jpg
+    Event2.jpeg
+    Event3.jpeg
+    Event4.jpg

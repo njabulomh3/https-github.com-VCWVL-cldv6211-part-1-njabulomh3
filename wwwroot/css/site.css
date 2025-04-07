@@ -1,0 +1,129 @@
+/* Base Styles (keep your existing) */
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+/* Focus Styles (keep your existing) */
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus,
+.form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* Form Styles (keep your existing) */
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+
+/* ===== NEW DASHBOARD STYLES ===== */
+
+/* Dashboard Cards */
+.dashboard-card {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+.card-primary {
+    background: linear-gradient(135deg, #258cfb 0%, #0062cc 100%);
+}
+
+.card-success {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.card-text.display-4 {
+    font-weight: 700;
+}
+
+/* Featured Content */
+.featured-header {
+    border-left: 4px solid #258cfb;
+    padding-left: 10px;
+    margin-bottom: 20px;
+}
+
+.list-group-item-action {
+    transition: all 0.2s;
+    border-radius: 8px !important;
+    margin-bottom: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+    .list-group-item-action:hover {
+        background-color: #f8f9fa;
+        border-left: 4px solid #258cfb;
+        transform: translateX(5px);
+    }
+
+/* Image Thumbnails */
+.img-thumbnail {
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    padding: 2px;
+    transition: transform 0.3s;
+}
+
+    .img-thumbnail:hover {
+        transform: scale(1.03);
+    }
+
+/* Responsive Adjustments */
+@media (max-width: 767.98px) {
+    .dashboard-card {
+        margin-bottom: 20px;
+    }
+
+    .card-text.display-4 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Footer Enhancement (optional) */
+.footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    margin-top: 40px;
+}
+
+/* Custom file input styling */
+.custom-file-input ~ .custom-file-label::after {
+    content: "Browse";
+}
+
+/* Image preview styling */
+.img-preview {
+    max-height: 200px;
+    margin-top: 10px;
+    display: none; /* Will be shown via JavaScript if needed */
+}

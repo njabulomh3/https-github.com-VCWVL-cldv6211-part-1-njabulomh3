@@ -1,0 +1,44 @@
+﻿@model EventEase.Models.Booking
+
+@{
+    ViewData["Title"] = "Create Booking";
+}
+
+<h1>Create Booking</h1>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="EventId" class="control-label"></label>
+                <select asp-for="EventId" class="form-control" asp-items="ViewBag.EventId">
+                    <option value="">-- Select Event --</option>
+                </select>
+                <span asp-validation-for="EventId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="VenueId" class="control-label"></label>
+                <select asp-for="VenueId" class="form-control" asp-items="ViewBag.VenueId">
+                    <option value="">-- Select Venue --</option>
+                </select>
+                <span asp-validation-for="VenueId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>

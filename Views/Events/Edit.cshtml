@@ -1,0 +1,135 @@
+﻿@model EventEase.Models.Event
+@{
+    ViewData["Title"] = "Edit Event";
+}
+
+<h1>Edit Event</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="EventId" />
+
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="EventName" class="control-label"></label>
+                <input asp-for="EventName" class="form-control" />
+                <span asp-validation-for="EventName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EventDate" class="control-label"></label>
+                <input asp-for="EventDate" type="datetime-local" class="form-control" />
+                <span asp-validation-for="EventDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="VenueId" class="control-label"></label>
+                <select asp-for="VenueId" class="form-control" asp-items="ViewBag.VenueId">
+                    <option value="">-- Select Venue --</option>
+                </select>
+                <span asp-validation-for="VenueId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label">Event Image</label>
+                <div class="custom-file">
+                    <input asp-for="ImageFile" class="custom-file-input" id="customFile" accept=".jpg,.jpeg,.png">
+                    <label class="custom-file-label" for="customFile">
+                        @(Model.ImageFile != null ? Model.ImageFile.FileName : "Choose new image...")
+                    </label>
+                </div>
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                <small class="form-text text-muted">Leave empty to keep current image</small>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.ImagePath))
+            {
+                <div class="form-group">
+                    <label>Current Image:</label>
+                    <div>
+                        <img src="@Model.ImagePath" class="img-thumbnail" style="max-height: 200px;" />
+                        <div class="form-check mt-2">
+                            <input class="form-check-input" type="checkbox" id="removeImage" name="removeImage" value="true">
+                            <label class="form-check-label" for="removeImage">
+                                Remove current image
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="form-group mt-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .custom-file-input:focus ~ .custom-file-label {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        }
+
+        .img-thumbnail {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function() {
+            // Initialize file input label
+            bsCustomFileInput.init();
+
+            // Set up date picker
+            $('#EventDate').datetimepicker({
+                format: 'YYYY-MM-DDTHH:mm',
+                sideBySide: true
+            });
+
+            // File validation
+            $('form').submit(function(e) {
+                const fileInput = $('#customFile')[0];
+                if (fileInput.files && fileInput.files[0]) {
+                    // Size validation (5MB limit)
+                    if (fileInput.files[0].size > 5 * 1024 * 1024) {
+                        alert('Error: File exceeds 5MB limit');
+                        e.preventDefault();
+                        return false;
+                    }
+
+                    // Type validation
+                    const validTypes = ['image/jpeg', 'image/png'];
+                    if (!validTypes.includes(fileInput.files[0].type)) {
+                        alert('Error: Only JPG/PNG images allowed');
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+                return true;
+            });
+        });
+    </script>
+}
