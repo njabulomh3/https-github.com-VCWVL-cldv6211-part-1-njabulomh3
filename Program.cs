@@ -23,8 +23,8 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
     options.Password.RequiredLength = 6;
     options.User.RequireUniqueEmail = true;
 })
-.AddEntityFrameworkStores<EventEaseDbContext>()
-.AddDefaultTokenProviders();
+.AddEntityFrameworkStores<EventEaseDbContext>();
+
 
 // Add session support (optional but useful)
 builder.Services.AddSession(options =>
